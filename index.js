@@ -2,7 +2,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const path = require("path");
-
+const cors = require("cors");
 const routeLivres = require("./routes/livres");
 const routeUtilisateurs = require("./routes/utilisateurs");
 
@@ -13,6 +13,8 @@ dotenv.config();
 //PERMETTRE DE RECEVOIR UN BODY SOUS FORME DE JSON
 serveur.use(express.json());
 
+
+serveur.use(cors());
 //PERMETTRE L'ACCES AU DOSSIER PUBLIC
 const dossierPublic = path.join(__dirname, "public");
 serveur.use(express.static(dossierPublic));
