@@ -355,14 +355,16 @@ routeur.post(
       .escape()
       .trim()
       .notEmpty()
+      .withMessage("Le titre est obligatoire.")
       .isLength({ max: 250 })
-      .withMessage("Le titre est obligatoire."),
+      .withMessage("Le titre doit avoir 250 caractères maximum."),
     check("auteur")
       .escape()
       .trim()
       .notEmpty()
+      .withMessage("L'auteur est obligatoire.")
       .isLength({ max: 100 })
-      .withMessage("L'auteur est obligatoire."),
+      .withMessage("Le nom de l'auteur doit avoir 100 caractères maximum."),
     check("description")
       .escape()
       .trim()
@@ -385,6 +387,7 @@ routeur.post(
       .escape()
       .trim()
       .notEmpty()
+      .withMessage("Le champ ISBN est obligatoire.")
       .isISBN()
       .withMessage("Veuillez entrer un ISBN valide."),
     check("pages")
@@ -399,9 +402,8 @@ routeur.post(
       .trim()
       .isArray()
       .notEmpty()
-      .isLength({ max: 1000 })
       .withMessage(
-        "Veuillez entrer une catégories de 1000 caractères et moins."
+        "Une catégorie est obligatoire. Veuillez entrer au moins une catégorie."
       ),
     check("date")
       .escape()
@@ -414,7 +416,10 @@ routeur.post(
       .escape()
       .trim()
       .notEmpty()
-      .isLength({ max: 1000 })
+      .withMessage(
+        "Le champ image est obligatoire. Veuillez entrer une image."
+      )
+      .isLength({ max: 100 })
       .matches(/\.(jpeg|gif|png|jpg)$/)
       .withMessage(
         "Veuillez entrer une image de format .jpeg, .gif, .png ou .jpg."
