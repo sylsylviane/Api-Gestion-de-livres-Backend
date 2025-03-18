@@ -427,22 +427,28 @@ routeur.post(
   ],
   async (req, res) => {
     try {
+      //Vérifier si les données sont valides
       const erreurValidation = validationResult(req);
+      //Si les données ne sont pas valides
       if (!erreurValidation.isEmpty()) {
         return res
           .status(400)
           .json({ message: "Données invalides.", erreurValidation });
       }
-      const livres = [];
-      const donnees = await db.collection("livres").get();
+  
+      const livres = []; //Créer un tableau pour stocker les livres
+      const donnees = await db.collection("livres").get();//Récupérer les données de la base de données
 
+      //Parcourir les données
       donnees.forEach((donnee) => {
+        //Créer un objet livre avec l'identifiant et les données
         const livre = { id: donnee.id, ...donnee.data() };
+        //Ajouter le livre dans le tableau
         livres.push(livre);
       });
 
-      const { body } = req;
-      let livreExiste = false;
+      const { body } = req; //Récupérer les données du livre
+      let livreExiste = false; //Créer une variable pour vérifier si le livre existe
       //Vérifier si le livre existe
       livres.forEach((livre) => {
         if (body.isbn === livre.isbn) {
@@ -456,7 +462,7 @@ routeur.post(
             "Ce livre est déjà présent dans la base de données. Veuillez entrer un autre livre.",
         });
       } else {
-        await db.collection("livres").add(body);
+        await db.collection("livres").add(body); //Ajouter le livre dans la base de données
         return res.status(201).json({ message: "Le livre a été ajouté." });
       }
     } catch (erreur) {
@@ -510,32 +516,36 @@ routeur.put(
       .isLength({ min: 20, max: 20 })
       .matches(/([A-z0-9\-\_]){20}/),
   ],
+  
   async (req, res) => {
     try {
+      //Vérifier si les données sont valides
       const erreurValidation = validationResult(req);
+      //Si les données ne sont pas valides
       if (!erreurValidation.isEmpty()) {
+        //Retourner un message d'erreur
         return res
           .status(400)
           .json({ message: "Données invalides.", erreurValidation });
       }
+      //Récupérer l'identifiant du livre
       const { id } = req.params;
+      //Récupérer les données du livre
       const { body } = req;
-
-      const livreDonnees = await db
-        .collection("livres")
-        .where("id", "==", id)
-        .get();
-
-      console.log(livreDonnees.docs);
-
-      if (livreDonnees.docs.length == 0) {
+  
+      const livreDonnees = await db.collection("livres").doc(id).get(); //Récupérer le livre de la base de données 
+      //Vérifier si le livre existe
+      if (livreDonnees.exists == false) {
         return res.status(400).json({ message: "Le livre n'existe pas." });
       }
+      //Modifier le livre
       await db.collection("livres").doc(id).update(body);
+      //Retourner un message de succès
       return res
         .status(201)
         .json({ message: "Le livre a été modifié", livre: body });
     } catch (erreur) {
+      //Retourner un message d'erreur
       return res.status(500).json({
         message:
           "Une erreur est survenue. Veuillez réessayer dans quelques instants",
