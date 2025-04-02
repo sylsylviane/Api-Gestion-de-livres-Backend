@@ -107,8 +107,8 @@ routeur.post(
         return res.status(400).json({ message: "Le courriel n'existe pas." });
       }
 
-      const utilisateur = utilisateurDonnees.docs[0].data();
-      const mdpIdentique = await bcrypt.compare(mdp, utilisateur.mdp);
+      const utilisateur = utilisateurDonnees.docs[0].data(); // Récupère les données de l'utilisateur dans la base de données Firestore (Firebase) 
+      const mdpIdentique = await bcrypt.compare(mdp, utilisateur.mdp); // Compare le mot de passe entré avec le mot de passe encrypté dans la base de données
 
       if (mdpIdentique) {
         delete utilisateur.mdp;
@@ -116,8 +116,8 @@ routeur.post(
           expiresIn: "1d",
         };
 
-        jwt.sign(utilisateur, process.env.JWT_SECRET, options);
-        return res.status(200).json({ message: "Utilisateur connecté." });
+        const jeton = jwt.sign(utilisateur, process.env.JWT_SECRET, options); // Crée un jeton d'authentification pour l'utilisateur
+        return res.status(200).json({ message: "Utilisateur connecté.", jeton });
       } else {
         return res.status(400).json({ message: "Mot de passe invalide." });
       }
