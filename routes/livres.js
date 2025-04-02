@@ -5,6 +5,8 @@ const routeur = express.Router();
 const db = require("../config/db");
 //IMPORTER LES FONCTIONS DE VALIDATION
 const { check, validationResult } = require("express-validator");
+//IMPORTATION DU MIDDLEWARE D'AUTHENTIFICATION
+const auth = require("../middlewares/auth");
 //CRÉATION DES ROUTES
 /**
  * Route servant à récupérer tous les livres de la bases de données
@@ -350,6 +352,7 @@ routeur.get(
  */
 routeur.post(
   "/",
+  auth,
   [
     check("titre")
       .escape()
@@ -476,7 +479,7 @@ routeur.post(
 /**
  * Route servant à initialiser la bases de données avec le fichier livresDepart.js
  */
-routeur.post("/initialiser", async (req, res) => {
+routeur.post("/initialiser", auth, async (req, res) => {
   try {
     const livresDeDepart = require("./data/livresDepart");
     const livres = [];
@@ -507,6 +510,7 @@ routeur.post("/initialiser", async (req, res) => {
  */
 routeur.put(
   "/:id",
+  auth,
   [
     check("id")
       .escape()
@@ -559,6 +563,7 @@ routeur.put(
  */
 routeur.delete(
   "/:id",
+  auth,
   [
     check("id")
       .escape()
