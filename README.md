@@ -1,4 +1,16 @@
 # API de Gestion des Livres
+Ce projet a été exécuté dans le cadre du cours de **Techniques avancées en programmation Web** 
+
+## Objectifs
+
+-   Créer un service Web en REST utilisant Node.js et Express.js servant à fournir des données à un site Web de produits.
+-   Le thème de votre site est au choix. Vous pouvez choisir de faire un site de critiques de films, de services. Limitez-vous à un seul type de produit.
+-   Utiliser adéquatement une base de données infonuagique sur [Firestore](https://firebase.google.com/docs/firestore) de Google Cloud Platform
+-   Utiliser adéquatement les requêtes HTTP GET, POST, PUT et DELETE ainsi que les codes de statut HTTP.
+-   Gérer les erreurs et retourner les messages adéquats.
+-   Déployer le service Web sur [Render](https://www.render.com/) à partir d'un dépôt GitHub (gratuit).
+
+> Lien render: https://tp1-tech-av-prog-web.onrender.com/
 
 L'API de gestion des livres permet aux utilisateurs:
 
