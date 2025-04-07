@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sylsylviane/Tp1_Tech_Av_Prog_Web.git"
+    "url": "git+https://github.com/sylsylviane/Api-Gestion-de-livres-Backend.git"
   },
   "author": "Sylviane Pare",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sylsylviane/Tp1_Tech_Av_Prog_Web/issues"
+    "url": "https://github.com/sylsylviane/Api-Gestion-de-livres-Backend/issues"
   },
-  "homepage": "https://github.com/sylsylviane/Tp1_Tech_Av_Prog_Web#readme",
+  "homepage": "https://github.com/sylsylviane/Api-Gestion-de-livres-Backend#readme",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
