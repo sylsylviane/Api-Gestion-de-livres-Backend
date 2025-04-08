@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 async function auth(req, res, next){
   // Récupération du token dans le header de la requête HTTP
   const jeton =
-    req.headers["authorization"] && req.headers["authoriztion"].split(" ")[1];
+    req.headers["authorization"] && req.headers["authorization"].split(" ")[1];
 
   // Si le token n'est pas fourni, on renvoie une erreur 401 (non autorisé)
   if (!jeton)
